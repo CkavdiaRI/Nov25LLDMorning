@@ -1,0 +1,6 @@
+"You’re building a fantasy RPG game. Each time a player creates a new character (Knight, Mage, Archer),
+ the system has to load multiple deep attributes (weapons, AI settings, stats). Now players want to copy
+  an existing character to create a new one with a few changes."
+
+You must create multiple characters based on existing ones.
+
