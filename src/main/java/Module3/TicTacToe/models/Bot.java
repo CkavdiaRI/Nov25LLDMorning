@@ -1,5 +1,8 @@
 package Module3.TicTacToe.models;
 
+import Module3.TicTacToe.strategies.botPlayingStrategy.BotPlayingStrategyFactory;
+import Module3.TicTacToe.strategies.botPlayingStrategy.IBotPlayingStrategy;
+
 public class Bot extends Player{
     private BotDifficultyLevel level;
 
@@ -17,8 +20,8 @@ public class Bot extends Player{
     }
 
     @Override
-    public Move makeMove() {
-        // Bot move logic can be implemented here
-        return null;
+    public Move makeMove(Board board) {
+        IBotPlayingStrategy botStrategy = BotPlayingStrategyFactory.getBotPlayingStrategy(level);
+        return botStrategy.makeMove(board, this);
     }
 }

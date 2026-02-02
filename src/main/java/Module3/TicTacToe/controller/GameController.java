@@ -1,6 +1,7 @@
 package Module3.TicTacToe.controller;
 
 import Module3.TicTacToe.models.Game;
+import Module3.TicTacToe.models.GameState;
 import Module3.TicTacToe.models.Player;
 import Module3.TicTacToe.strategies.winningStrategy.IWinningStrategy;
 
@@ -25,6 +26,18 @@ public class GameController {
         // Display Board
     public void makeMove(){
         this.game.makeMove();
+    }
+
+    public GameState getGameState(){
+        return game.getGameState();
+    }
+
+    public Player checkWinner(){
+        return game.getWinner();
+    }
+
+    public void undoMove(){
+        game.undoMove();
     }
 }
 

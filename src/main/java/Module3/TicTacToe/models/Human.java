@@ -17,7 +17,7 @@ public class Human extends Player{
     }
 
     @Override
-    public Move makeMove() {
+    public Move makeMove(Board board) {
         java.util.Scanner scanner = new java.util.Scanner(System.in);
         System.out.println("Please enter the row: ");
         int row = scanner.nextInt();

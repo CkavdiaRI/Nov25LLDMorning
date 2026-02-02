@@ -24,5 +24,18 @@ public class Client {
 
         gameController.displayBoard();
 
+        // Play the game
+        while(gameController.getGameState().equals(GameState.IN_PROGRESS)) {
+            gameController.makeMove();
+            gameController.displayBoard();
+        }
+
+        // Display the results
+        if(gameController.getGameState().equals(GameState.SUCCESS)) {
+            System.out.println("Game Over! The winner is: " + gameController.checkWinner().getName());
+        } else if (gameController.getGameState().equals(GameState.DRAW)) {
+            System.out.println("Game Over! It's a draw.");
+        }
+
     }
 }

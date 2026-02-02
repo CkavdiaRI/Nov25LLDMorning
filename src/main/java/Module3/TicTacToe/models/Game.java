@@ -102,7 +102,8 @@ public class Game {
         int col = move.getCell().getColumn();
 
         // Update the cell state on the board
-        Cell cellToBeUpdated = move.getCell();
+        //Cell cellToBeUpdated = move.getCell();
+        Cell cellToBeUpdated = board.getBoard().get(row).get(col);
         cellToBeUpdated.setCellState(CellState.OCCUPIED);
         cellToBeUpdated.setPlayer(move.getPlayer());
         cellToBeUpdated.setSymbol(move.getPlayer().getSymbol());
@@ -115,25 +116,39 @@ public class Game {
         nextPlayerIndex = nextPlayerIndex % players.size();
     }
 
+    public boolean checkWinner(Move move, Board board){
+        for(IWinningStrategy winningStrategy : winningStrategies){
+            if(winningStrategy.checkWinner(move, board)){
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public boolean isDraw(){return moves.size() == board.getSize() * board.getSize();}
+
     // Make a move
     public void makeMove(){
         // Current p[layer
         Player currentPlayer = players.get(nextPlayerIndex);
         System.out.println(currentPlayer.getName() + ", it's your turn. Please be ready !");
 
-        Move move = currentPlayer.makeMove();
+        Move move = currentPlayer.makeMove(board);
 
         // Validate the move
         if(validate(move)){
             updateGameAfterValidMove(move);
         }
 
-
-        // Update the board with the validated move
-        moves.add(move);
-
-
         // Check for the winner
-
+        if(checkWinner(move, board)){
+            gameState = GameState.SUCCESS;
+            winner = currentPlayer;
+        } else if(isDraw()){
+            gameState = GameState.DRAW;
+        }
     }
+
+    public void undoMove(){}
+
 }
