@@ -2,6 +2,7 @@ package Module3.TicTacToe;
 
 import Module3.TicTacToe.controller.GameController;
 import Module3.TicTacToe.models.*;
+import TicTacToe.models.*;
 import Module3.TicTacToe.strategies.winningStrategy.IWinningStrategy;
 import Module3.TicTacToe.strategies.winningStrategy.RowWinningStrategy;
 

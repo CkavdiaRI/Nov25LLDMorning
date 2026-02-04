@@ -1,6 +1,7 @@
 package Module3.TicTacToe.strategies.botPlayingStrategy;
 
 import Module3.TicTacToe.models.*;
+import TicTacToe.models.*;
 
 public class EasyBotPlayingStrategy implements IBotPlayingStrategy{
     @Override
