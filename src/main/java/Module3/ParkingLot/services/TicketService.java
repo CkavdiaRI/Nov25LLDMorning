@@ -1,17 +1,17 @@
 package Module3.ParkingLot.services;
 
-import Module3.ParkingLot.models.Gate;
-import Module3.ParkingLot.models.Ticket;
-import Module3.ParkingLot.models.Vehicle;
-import Module3.ParkingLot.models.VehicleType;
+import Module3.ParkingLot.models.*;
 import Module3.ParkingLot.repositories.GateRepository;
+import Module3.ParkingLot.repositories.ParkingLotRepository;
 import Module3.ParkingLot.repositories.VehicleRepository;
 
+import java.util.Date;
 import java.util.Optional;
 
 public class TicketService {
     private GateRepository gateRepository;
     private VehicleRepository vehicleRepository;
+    private ParkingLotRepository parkingLotRepository;
 
     public TicketService(
             GateRepository gateRepository,
@@ -24,7 +24,8 @@ public class TicketService {
         String licensePlate,
         VehicleType vehicleType,
         String ownerName,
-        int gateId
+        int gateId,
+        int parkingLotId
     ) {
         // Logic to issue a parking ticket
 
@@ -52,7 +53,31 @@ public class TicketService {
             vehicle = vehicleOptional.get();
         }
 
+        // Parking Lot repository
+        Optional<ParkingLot> parkingLotOptional = parkingLotRepository.findById(parkingLotId);
+        if(parkingLotOptional.isEmpty()) {
+            throw new RuntimeException("Invalid Parking Lot Id");
+        }
+        ParkingLot parkingLot = parkingLotOptional.get();
 
-        return  null;
+        // Call allocation strategy to get the parking spot for the vehicle
+        ParkingSlot parkingSlot = parkingLot.getSlotAllotcationStrategy().allotSlot(parkingLot, vehicle.getVehicleType());
+
+        if(parkingSlot == null) {
+            throw new RuntimeException("No parking slot available for the vehicle type");
+        }
+
+        // Issue a ticket for the vehicle
+        Ticket ticket = new Ticket();
+        ticket.setVehicle(vehicle);
+        ticket.setGate(gate);
+        ticket.setParkingSlot(parkingSlot);
+        ticket.setEntryTime(new Date());
+        ticket.setOperator(gate.getCurrentOperator());
+
+        // Save the ticket
+            // Create ticket repository and save the ticket to the database
+
+        return  ticket;
     }
 }

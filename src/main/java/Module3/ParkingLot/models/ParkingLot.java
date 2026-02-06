@@ -1,6 +1,6 @@
 package Module3.ParkingLot.models;
 
-import Module3.ParkingLot.strategy.SlotAllocationStrategy;
+import Module3.ParkingLot.strategy.ISlotAllocationStrategy;
 
 import java.util.List;
 
@@ -10,16 +10,16 @@ public class ParkingLot extends BaseModel {
     private List<ParkingFloor> parkingFloors;
     private String address;
     private List<Gate> gates;
+    private ISlotAllocationStrategy slotAllotcationStrategy;
 
-    public SlotAllocationStrategy getSlotAllotcationStrategy() {
+    public ISlotAllocationStrategy getSlotAllotcationStrategy() {
         return slotAllotcationStrategy;
     }
 
-    public void setSlotAllotcationStrategy(SlotAllocationStrategy slotAllotcationStrategy) {
+    public void setSlotAllotcationStrategy(ISlotAllocationStrategy slotAllotcationStrategy) {
         this.slotAllotcationStrategy = slotAllotcationStrategy;
     }
 
-    private SlotAllocationStrategy slotAllotcationStrategy;
     // status
 
     // allowedVehicleTypes
